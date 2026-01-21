@@ -25,3 +25,16 @@ export interface TerminalLog {
   text: string;
   status: 'info' | 'success' | 'error';
 }
+
+export interface Project {
+  _id: string;
+  slug: string;
+  title: string;
+  description: string;
+  difficulty: number;
+  testSuiteCode: string;
+  questions: Array<{
+    q: string;
+    answers: string[];
+  }>;
+}

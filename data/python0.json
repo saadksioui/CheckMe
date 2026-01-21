@@ -1,0 +1,30 @@
+{
+  "_id": "507f1f77bcf86cd799439010",
+  "slug": "python-module-0",
+  "title": "Growing Code: Python Fundamentals",
+  "description": "Discover Python's fundamental syntax and semantics through analyzing community garden data. In this introductory module, you will learn to write functions, handle user input, perform calculations, manage control flow (if/else), and utilize both iterative loops and recursion—all within the context of sustainable gardening.",
+  "difficulty": 1,
+  "testSuiteCode": "test_python0.py",
+  "questions": [
+    {
+      "q": "In Exercise 1 (Garden Plot Area), the input() function returns a string. What function must be used to perform mathematical calculations on this input?",
+      "answers": ["int() or float()", "str()", "calc()", "parse()"]
+    },
+    {
+      "q": "In Exercise 3 (Plant Age Check), which control flow statement allows the program to make a decision based on whether the age is greater than 60?",
+      "answers": ["if / else", "for loop", "while loop", "try / except"]
+    },
+    {
+      "q": "Exercise 5 requires implementing both an iterative and a recursive solution. What is the defining characteristic of the recursive function?",
+      "answers": ["The function calls itself.", "It uses a 'while' loop.", "It imports the 'recursion' module.", "It runs faster than the iterative version."]
+    },
+    {
+      "q": "In Exercise 7 (Seed Inventory), you are required to use type annotations. What is the correct syntax to declare that the 'quantity' parameter must be an integer?",
+      "answers": ["quantity: int", "int quantity", "var quantity = int", "quantity -> int"]
+    },
+    {
+      "q": "According to the 'General Instructions' chapter, what should happen if a user enters a negative number or invalid input (unless explicitly handled)?",
+      "answers": ["The behavior is undefined (you don't need to handle it).", "The program must crash immediately.", "You must print 'Error: Invalid Input'.", "You must return False."]
+    }
+  ]
+}

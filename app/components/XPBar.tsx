@@ -24,7 +24,7 @@ const XPBar: React.FC<XPBarProps> = ({ current, max, label = "XP Progress" }) =>
           transition={{ duration: 1, ease: "easeOut" }}
           className="h-full bg-[#00FFA3] relative shadow-[0_0_10px_#00FFA3]"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent" />
         </motion.div>
       </div>
     </div>

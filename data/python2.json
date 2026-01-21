@@ -1,0 +1,22 @@
+{
+  "_id": "507f1f77bcf86cd799439012",
+  "slug": "python2",
+  "title": "List Operations",
+  "description": "Create functions to manipulate lists: append, remove, sort, and find maximum value.",
+  "difficulty": 4,
+  "testSuiteCode": "def append_to_list(lst, item): lst.append(item); return lst\ndef remove_from_list(lst, item): lst.remove(item); return lst\ndef sort_list(lst): return sorted(lst)\ndef find_max(lst): return max(lst)",
+  "questions": [
+    {
+      "q": "Which method adds an item to the end of a list?",
+      "answers": ["append()", "insert()", "extend()", "add()"]
+    },
+    {
+      "q": "What does the sorted() function return?",
+      "answers": ["A new sorted list", "The original list sorted", "None", "An error"]
+    },
+    {
+      "q": "How do you find the maximum value in a list?",
+      "answers": ["max(list)", "list.max()", "maximum(list)", "list.maximum()"]
+    }
+  ]
+}

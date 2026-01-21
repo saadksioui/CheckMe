@@ -49,10 +49,6 @@ const Profile: React.FC<ProfileProps> = ({ stats, userProfile }) => {
                 <div className="w-48 h-48 rounded-2xl overflow-hidden border-4 border-slate-800 shadow-2xl relative">
                   <img src={profileImg} alt="Profile" className="w-full h-full object-cover" />
                 </div>
-                <label className="absolute -bottom-2 -right-2 p-3 bg-[#00FFA3] text-black rounded-xl cursor-pointer hover:scale-110 transition-transform shadow-lg">
-                  <Camera size={20} />
-                  <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
-                </label>
               </div>
 
               <div className="flex-1 space-y-4">
@@ -90,39 +86,6 @@ const Profile: React.FC<ProfileProps> = ({ stats, userProfile }) => {
               <p className="text-2xl font-bold text-emerald-400">125%</p>
             </div>
           </div>
-        </div>
-
-        <div className="glass rounded-2xl p-6 border border-slate-800 flex flex-col items-center">
-          <h4 className="font-bold mb-6 uppercase text-[10px] tracking-widest text-slate-500 self-start">Skill Radar</h4>
-          <div className="w-full h-75">
-            <ResponsiveContainer width="100%" height="100%">
-              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
-                <PolarGrid stroke="#1e293b" />
-                <PolarAngleAxis dataKey="subject" tick={{ fill: '#64748b', fontSize: 12 }} />
-                <PolarRadiusAxis angle={30} domain={[0, 100]} axisLine={false} tick={false} />
-                <Radar
-                  name={userProfile?.login || "ft_user"}
-                  dataKey="A"
-                  stroke="#00FFA3"
-                  fill="#00FFA3"
-                  fillOpacity={0.4}
-                />
-              </RadarChart>
-            </ResponsiveContainer>
-          </div>
-          <div className="mt-4 w-full space-y-4">
-            <div className="flex justify-between items-center text-xs">
-              <span className="text-slate-400">Rigor Score</span>
-              <span className="text-[#00FFA3] font-bold">{stats.rigor}%</span>
-            </div>
-            <div className="flex justify-between items-center text-xs">
-              <span className="text-slate-400">Pythonic Mastery</span>
-              <span className="text-[#00FFA3] font-bold">{stats.pythonic}%</span>
-            </div>
-          </div>
-          <button className="mt-auto w-full py-3 bg-slate-900 border border-slate-800 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 text-white">
-            <Save size={14} /> Update Signature
-          </button>
         </div>
       </div>
     </div>

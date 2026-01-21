@@ -1,29 +1,31 @@
 
 import React from 'react';
-import { 
-  LayoutDashboard, 
-  ShieldCheck, 
-  Trophy, 
-  User, 
+import { useRouter, usePathname } from 'next/navigation';
+import {
+  LayoutDashboard,
+  ShieldCheck,
+  Trophy,
+  User,
   LogOut,
   Hexagon
 } from 'lucide-react';
-import { AppView, UserStats } from '../types';
+import { UserStats } from '../types';
 import XPBar from './XPBar';
 
 interface SidebarProps {
-  currentView: AppView;
-  setView: (view: AppView) => void;
   stats: UserStats;
   userProfile?: any;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, stats, userProfile }) => {
+const Sidebar: React.FC<SidebarProps> = ({ stats, userProfile }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const menuItems = [
-    { id: AppView.DASHBOARD, label: 'Dashboard', icon: LayoutDashboard },
-    { id: AppView.DEFENSE, label: 'Defense', icon: ShieldCheck },
-    { id: AppView.LEADERBOARD, label: 'Leaderboard', icon: Trophy },
-    { id: AppView.PROFILE, label: 'Profile', icon: User },
+    { id: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { id: '/defense', label: 'Defense', icon: ShieldCheck },
+    { id: '/leaderboard', label: 'Leaderboard', icon: Trophy },
+    { id: '/profile', label: 'Profile', icon: User },
   ];
 
   return (
@@ -39,14 +41,14 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, stats, userProf
         {menuItems.map((item) => (
           <button
             key={item.id}
-            onClick={() => setView(item.id)}
+            onClick={() => router.push(item.id)}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group ${
-              currentView === item.id 
-                ? 'bg-slate-900 text-[#00FFA3] border border-[#00FFA3]/20 shadow-[0_0_10px_rgba(0,255,163,0.1)]' 
+              pathname === item.id
+                ? 'bg-slate-900 text-[#00FFA3] border border-[#00FFA3]/20 shadow-[0_0_10px_rgba(0,255,163,0.1)]'
                 : 'text-slate-400 hover:text-white hover:bg-slate-900/50'
             }`}
           >
-            <item.icon size={18} className={currentView === item.id ? 'text-[#00FFA3]' : 'group-hover:text-white'} />
+            <item.icon size={18} className={pathname === item.id ? 'text-[#00FFA3]' : 'group-hover:text-white'} />
             <span className="text-sm font-medium">{item.label}</span>
           </button>
         ))}

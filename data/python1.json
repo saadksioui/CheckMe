@@ -1,0 +1,22 @@
+{
+  "_id": "507f1f77bcf86cd799439011",
+  "slug": "python1",
+  "title": "Basic Calculator",
+  "description": "Implement a simple calculator that can add, subtract, multiply, and divide two numbers.",
+  "difficulty": 3,
+  "testSuiteCode": "def add(a, b): return a + b\ndef subtract(a, b): return a - b\ndef multiply(a, b): return a * b\ndef divide(a, b): return a / b if b != 0 else 'Error'",
+  "questions": [
+    {
+      "q": "What is the operator for addition in Python?",
+      "answers": ["+", "-", "*", "/"]
+    },
+    {
+      "q": "How do you define a function in Python?",
+      "answers": ["def function_name():", "function function_name():", "func function_name():", "define function_name():"]
+    },
+    {
+      "q": "What happens when you divide by zero?",
+      "answers": ["ZeroDivisionError", "Infinity", "NaN", "Nothing"]
+    }
+  ]
+}

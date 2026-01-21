@@ -1,10 +1,8 @@
-
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Code, MessageSquare, Shield, AlertTriangle, User, Hexagon } from 'lucide-react';
-import { getDefenseReview } from '../services/geminiService';
-import { ChatMessage } from '../types';
+import { Send, Code, MessageSquare, Shield, AlertTriangle, User, Hexagon, ArrowLeft, BookOpen } from 'lucide-react';
+import { ChatMessage, Project } from '../types';
 
 interface DefenseProps {
   code: string;
@@ -14,6 +12,9 @@ const Defense: React.FC<DefenseProps> = ({ code }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [loadingProjects, setLoadingProjects] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -22,31 +23,120 @@ const Defense: React.FC<DefenseProps> = ({ code }) => {
     }
   }, [messages]);
 
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch('/api/projects');
+        if (response.ok) {
+          const data = await response.json();
+          setProjects(data);
+        }
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      } finally {
+        setLoadingProjects(false);
+      }
+    };
+    fetchProjects();
+  }, []);
+
+  const handleProjectSelect = (project: Project) => {
+    setSelectedProject(project);
+    setMessages([]); // Reset messages for new project
+  };
+
+  const handleBackToProjects = () => {
+    setSelectedProject(null);
+    setMessages([]);
+  };
+
   const handleSend = async () => {
     if (!input.trim()) return;
 
-    const userMsg = input;
+    const userMessage: ChatMessage = { role: 'user', content: input };
+    setMessages(prev => [...prev, userMessage]);
+    const messageToSend = input;
     setInput('');
-    setMessages(prev => [...prev, { role: 'user', content: userMsg }]);
     setIsLoading(true);
 
     try {
-      const review = await getDefenseReview(code, userMsg);
-      setMessages(prev => [...prev, { role: 'ai', content: review || 'I have nothing more to say about this code.' }]);
-    } catch (err) {
-      setMessages(prev => [...prev, { role: 'ai', content: "SYSTEM ERROR: API connection failed. Re-run sandbox." }]);
+      const response = await fetch('/api/defense/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: messageToSend, projectId: selectedProject?._id || '507f1f77bcf86cd799439011' }), // Use selected project ID
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get response from API');
+      }
+
+      const data = await response.json();
+      const aiMessage: ChatMessage = { role: 'ai', content: data.reply };
+      setMessages(prev => [...prev, aiMessage]);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      const errorMessage: ChatMessage = { role: 'ai', content: 'Sorry, there was an error processing your message. Please try again.' };
+      setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
   };
 
+  if (loadingProjects) {
+    return (
+      <div className="flex-1 flex items-center justify-center">
+        <div className="text-[#00FFA3]">Loading projects...</div>
+      </div>
+    );
+  }
+
+  if (!selectedProject) {
+    return (
+      <div className="flex-1 p-8">
+        <div className="max-w-6xl mx-auto">
+          <h1 className="text-2xl font-bold mb-8 text-white">Defense Projects</h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map((project) => (
+              <div
+                key={project._id}
+                onClick={() => handleProjectSelect(project)}
+                className="bg-slate-900 border border-slate-800 rounded-lg p-6 hover:border-[#00FFA3] transition-colors cursor-pointer group"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 rounded-lg bg-[#00FFA3]/10 border border-[#00FFA3]/20 flex items-center justify-center group-hover:bg-[#00FFA3]/20 transition-colors">
+                    <BookOpen className="text-[#00FFA3]" size={24} />
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs text-slate-500 font-bold">DIFFICULTY</div>
+                    <div className="text-sm text-[#00FFA3] font-bold">{project.difficulty}/10</div>
+                  </div>
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">{project.title}</h3>
+                <p className="text-sm text-slate-400 mb-4 line-clamp-3">{project.description}</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-slate-500 font-mono">{project.slug}</span>
+                  <div className="text-xs text-[#00FFA3] font-bold uppercase">Click to Defend</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex-1 flex overflow-hidden">
-      {/* Code Viewer (Left) */}
       <div className="w-1/2 border-r border-slate-800 flex flex-col">
         <div className="p-4 bg-slate-900 flex items-center gap-2 border-b border-slate-800">
+          <button
+            onClick={handleBackToProjects}
+            className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors"
+          >
+            <ArrowLeft size={16} className="text-slate-400" />
+          </button>
           <Code size={16} className="text-[#00FFA3]" />
-          <span className="text-xs font-mono text-slate-400">exercise_00.py</span>
+          <span className="text-xs font-mono text-slate-400">{selectedProject.slug}.py</span>
           <div className="ml-auto flex gap-2">
             <span className="text-[10px] text-slate-500 px-2 py-0.5 border border-slate-700 rounded">UTF-8</span>
             <span className="text-[10px] text-slate-500 px-2 py-0.5 border border-slate-700 rounded">PYTHON 3.10</span>
@@ -67,7 +157,7 @@ const Defense: React.FC<DefenseProps> = ({ code }) => {
               <Shield className="text-[#00FFA3]" size={20} />
             </div>
             <div>
-              <p className="text-sm font-bold">AI Peer Reviewer</p>
+              <p className="text-sm font-bold">{selectedProject.title} - AI Peer Reviewer</p>
               <p className="text-[10px] text-emerald-500 uppercase tracking-widest font-bold">Rank: Evaluator</p>
             </div>
           </div>
