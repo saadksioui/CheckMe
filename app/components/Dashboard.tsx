@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { Upload, FileCode, ArrowRight, Zap, RefreshCw, AlertCircle, FileCheck } from 'lucide-react';
 import Terminal from './Terminal';
 import XPBar from './XPBar';
+import Link from 'next/link';
 
 interface DashboardProps {
   onSuccess: (code: string) => void;
@@ -60,7 +61,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onSuccess, xp }) => {
           {!isRunning && !isComplete && !isFailed ? (
             <div className="relative group">
               <div className="absolute -inset-1 bg-linear-to-r from-[#00FFA3] to-slate-900 rounded-xl blur opacity-10 group-hover:opacity-25 transition duration-1000 group-hover:duration-200"></div>
-              <div className="relative glass rounded-xl p-12 flex flex-col items-center justify-center border-2 border-dashed border-slate-700 hover:border-[#00FFA3] transition-colors h-80">
+              <Link href="/dashboard/projects" className="relative glass rounded-xl p-12 flex flex-col items-center justify-center border-2 border-dashed border-slate-700 hover:border-[#00FFA3] transition-colors h-80">
                 <input
                   type="file"
                   accept=".py"
@@ -70,7 +71,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onSuccess, xp }) => {
                 <div className="bg-slate-900 p-4 rounded-full mb-4">
                   <Upload className="text-[#00FFA3]" size={32} />
                 </div>
-                {file ? (
+                {/* {file ? (
                   <div className="text-center">
                     <p className="text-[#00FFA3] font-mono mb-2">{file.name}</p>
                     <p className="text-xs text-slate-500">Ready for processing</p>
@@ -81,13 +82,12 @@ const Dashboard: React.FC<DashboardProps> = ({ onSuccess, xp }) => {
                       <Zap size={16} /> Run Evaluation
                     </button>
                   </div>
-                ) : (
+                ) : ( */}
                   <div className="text-center">
                     <p className="text-lg font-bold mb-1">Drop your python script here</p>
                     <p className="text-sm text-slate-500">Only .py files are supported for this piscine.</p>
                   </div>
-                )}
-              </div>
+              </Link>
             </div>
           ) : isRunning ? (
             <div className="flex justify-center py-12">

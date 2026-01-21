@@ -14,7 +14,6 @@ interface IUser extends Document {
   xp: number;
   level: number;
   badges: string[];
-  // Map<Key, Value> allows dynamic project names
   projectAttempts: Map<string, IProjectAttempt>; 
 }
 

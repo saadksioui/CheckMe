@@ -43,7 +43,7 @@ const Sidebar: React.FC<SidebarProps> = ({ stats, userProfile }) => {
             key={item.id}
             onClick={() => router.push(item.id)}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group ${
-              pathname === item.id
+              pathname === item.id || pathname.startsWith(item.id + '/')
                 ? 'bg-slate-900 text-[#00FFA3] border border-[#00FFA3]/20 shadow-[0_0_10px_rgba(0,255,163,0.1)]'
                 : 'text-slate-400 hover:text-white hover:bg-slate-900/50'
             }`}
