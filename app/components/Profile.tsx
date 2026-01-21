@@ -1,8 +1,10 @@
 
+"use client";
+
 import React, { useState } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 import { Camera, Shield, Save } from 'lucide-react';
-import { UserStats } from '../types.ts';
+import { UserStats } from '../types';
 
 interface ProfileProps {
   stats: UserStats;
@@ -61,11 +63,11 @@ const Profile: React.FC<ProfileProps> = ({ stats, userProfile }) => {
                 <h3 className="text-2xl font-bold text-white">{userProfile?.login || 'ft_student'}</h3>
                 <p className="text-sm text-slate-400">Your profile is currently running in local mode. AI profile customization is disabled.</p>
                 <div className="flex gap-4">
-                  <div className="bg-slate-900 border border-slate-800 rounded-lg px-6 py-3 text-center min-w-[100px]">
+                  <div className="bg-slate-900 border border-slate-800 rounded-lg px-6 py-3 text-center min-w-25">
                     <p className="text-[10px] text-slate-500 font-bold uppercase">Campus</p>
                     <p className="text-sm font-bold text-white">{userProfile?.campus}</p>
                   </div>
-                  <div className="bg-slate-900 border border-slate-800 rounded-lg px-6 py-3 text-center min-w-[100px]">
+                  <div className="bg-slate-900 border border-slate-800 rounded-lg px-6 py-3 text-center min-w-25">
                     <p className="text-[10px] text-slate-500 font-bold uppercase">Coalition</p>
                     <p className="text-sm font-bold text-[#00FFA3]">{userProfile?.coalition}</p>
                   </div>
@@ -92,7 +94,7 @@ const Profile: React.FC<ProfileProps> = ({ stats, userProfile }) => {
 
         <div className="glass rounded-2xl p-6 border border-slate-800 flex flex-col items-center">
           <h4 className="font-bold mb-6 uppercase text-[10px] tracking-widest text-slate-500 self-start">Skill Radar</h4>
-          <div className="w-full h-[300px]">
+          <div className="w-full h-75">
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
                 <PolarGrid stroke="#1e293b" />

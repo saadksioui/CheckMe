@@ -1,4 +1,6 @@
 
+"use client";
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Code, MessageSquare, Shield, AlertTriangle, User, Hexagon } from 'lucide-react';
 import { getDefenseReview } from '../services/geminiService';
@@ -95,7 +97,7 @@ const Defense: React.FC<DefenseProps> = ({ code }) => {
           {messages.map((msg, i) => (
             <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className={`max-w-[85%] flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-                <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center ${
+                <div className={`w-8 h-8 rounded-full shrink-0 flex items-center justify-center ${
                   msg.role === 'ai' ? 'bg-[#00FFA3]/20 border border-[#00FFA3]/30' : 'bg-slate-800 border border-slate-700'
                 }`}>
                   {msg.role === 'ai' ? <Hexagon size={14} className="text-[#00FFA3]" /> : <User size={14} className="text-slate-300" />}

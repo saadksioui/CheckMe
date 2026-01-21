@@ -8,8 +8,8 @@ import {
   LogOut,
   Hexagon
 } from 'lucide-react';
-import { AppView, UserStats } from '../types.ts';
-import XPBar from './XPBar.tsx';
+import { AppView, UserStats } from '../types';
+import XPBar from './XPBar';
 
 interface SidebarProps {
   currentView: AppView;

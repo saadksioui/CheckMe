@@ -1,8 +1,10 @@
 
+"use client";
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Terminal as TerminalIcon, CheckCircle2, XCircle, ChevronRight, Loader2, Code2, Beaker } from 'lucide-react';
-import { TerminalLog } from '../types.ts';
-import { evaluateCode } from '../services/geminiService.ts';
+import { TerminalLog } from '../types';
+import { evaluateCode } from '../services/geminiService';
 
 interface TerminalProps {
   code: string;

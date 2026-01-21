@@ -1,8 +1,0 @@
-
-{
-  "name": "checkME - 42 Review Platform",
-  "description": "A professional, 42-themed code review and defense platform featuring automated terminal tests, AI-powered peer reviews, and an image studio powered by Gemini 2.5 Flash Image.",
-  "requestFramePermissions": [
-    "camera"
-  ]
-}

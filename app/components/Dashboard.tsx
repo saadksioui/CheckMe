@@ -1,8 +1,10 @@
 
+"use client";
+
 import React, { useState } from 'react';
 import { Upload, FileCode, ArrowRight, Zap, RefreshCw, AlertCircle, FileCheck } from 'lucide-react';
-import Terminal from './Terminal.tsx';
-import XPBar from './XPBar.tsx';
+import Terminal from './Terminal';
+import XPBar from './XPBar';
 
 interface DashboardProps {
   onSuccess: (code: string) => void;
@@ -57,7 +59,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onSuccess, xp }) => {
         <div className="lg:col-span-2 space-y-6">
           {!isRunning && !isComplete && !isFailed ? (
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#00FFA3] to-slate-900 rounded-xl blur opacity-10 group-hover:opacity-25 transition duration-1000 group-hover:duration-200"></div>
+              <div className="absolute -inset-1 bg-linear-to-r from-[#00FFA3] to-slate-900 rounded-xl blur opacity-10 group-hover:opacity-25 transition duration-1000 group-hover:duration-200"></div>
               <div className="relative glass rounded-xl p-12 flex flex-col items-center justify-center border-2 border-dashed border-slate-700 hover:border-[#00FFA3] transition-colors h-80">
                 <input
                   type="file"
